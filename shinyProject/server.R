@@ -44,6 +44,7 @@ shinyServer(function(input, output, session) {
   #   which(stores$tag == input$Area)
   # })
   
+  
   # observeEvent(input$Area, {
   #   # ShowId()
   #   which(stores$tag == input$Area)
@@ -64,7 +65,10 @@ shinyServer(function(input, output, session) {
   #     m <- addMarkers(m, lng=lng.path,lat=lat.path, icon=LeafIcon)
   #   }
   # })
-  # 
+  
+  
+  
+  
   output$mymap <- renderLeaflet({
     
     map_markers <- leaflet() %>% 
