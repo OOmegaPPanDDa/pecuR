@@ -67,7 +67,7 @@ shinyServer(function(input, output, session) {
   output$mymap <- renderLeaflet({
     markers711 <- leaflet() %>% 
       addTiles() %>%
-      setView(121.5467, 25.05248, zoom = 13)
+      setView(121.5467, 25.05248, zoom = input$zoom)
     markers711
   })
   

@@ -30,7 +30,13 @@ shinyUI(
         
         checkboxGroupInput("Area", label = h2("administrative district"),
                            choices = list("Starbucks"="star","COSMED"="cosmed","MRT"="mrt","POST"='post','CAFE85'='cafe85'),
-                           selected = c('star'))
+                           selected = c('star')),
+        
+        sliderInput("zoom",
+                    "zoom size:",
+                    min = 1,
+                    max = 18,
+                    value = 13)
         ),
     
       mainPanel(
