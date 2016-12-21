@@ -29,7 +29,7 @@ shinyUI(
         numericInput("getn", "input n: ", value = 100),
         
         checkboxGroupInput("Area", label = h2("administrative district"),
-                           choices = list("Starbucks"="star","COSMED"="cosmed","MRT"="mrt","POST"='post','CAFE85'='cafe85'),
+                           choices = list("Starbucks"="star","COSMED"="cosmed","MRT"="mrt","POST"='post','CAFE8MRT'='cafe8mrt'),
                            selected = c('star')),
         
         sliderInput("zoom",

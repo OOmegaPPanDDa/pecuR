@@ -40,35 +40,54 @@ shinyServer(function(input, output, session) {
   
   
   
-  ShowId <- eventReactive(input$Area, {
-    which(stores$tag == input$Area)
-  })
+  # ShowId <- eventReactive(input$Area, {
+  #   which(stores$tag == input$Area)
+  # })
   
-  observeEvent(input$Area, {
-    Id = ShowId()
-    m <- leafletProxy('mymap',session) %>% clearMarkers()
-    for( i in 1:length(input$Area) )
+  # observeEvent(input$Area, {
+  #   # ShowId()
+  #   which(stores$tag == input$Area)
+  #   m <- leafletProxy('mymap',session) %>% clearMarkers()
+  #   for( i in input$Area )
+  #   {
+  #     subid = which(stores$tag == i)
+  #     iconF = paste('i_', i, '.png', sep='')
+  #     
+  #     LeafIcon <- makeIcon(
+  #       iconUrl = iconF,
+  #       iconWidth = 18, iconHeight = 18,
+  #       iconAnchorX = 18, iconAnchorY = 18)
+  #     
+  #     lng.path = stores$lng[subid]
+  #     lat.path = stores$lat[subid]
+  #     
+  #     m <- addMarkers(m, lng=lng.path,lat=lat.path, icon=LeafIcon)
+  #   }
+  # })
+  # 
+  output$mymap <- renderLeaflet({
+    
+    map_markers <- leaflet() %>% 
+      addTiles() %>%
+      setView(stores$lng[1], stores$lat[1], zoom = input$zoom)
+    
+    for( i in input$Area)
     {
-      subid = which(stores$tag == input$Area[i])
-      iconF = stores$tag[subid[1]]
-      iconF = paste('i_', iconF, '.png', sep='')
-      
+      subid = which(stores$tag == i)
+      iconF = paste('i_', i, '.png', sep='')
+
       LeafIcon <- makeIcon(
         iconUrl = iconF,
         iconWidth = 18, iconHeight = 18,
         iconAnchorX = 18, iconAnchorY = 18)
-      
-      lng.path = stores$lan[subid]
+
+      lng.path = stores$lng[subid]
       lat.path = stores$lat[subid]
-      m <- addMarkers(m, lng=lng.path,lat=lat.path, icon=LeafIcon)
+
+      map_markers <- addMarkers(map_markers, lng=lng.path,lat=lat.path, icon=LeafIcon)
     }
-  })
-  
-  output$mymap <- renderLeaflet({
-    markers711 <- leaflet() %>% 
-      addTiles() %>%
-      setView(121.5467, 25.05248, zoom = input$zoom)
-    markers711
+    
+    map_markers
   })
   
   output$mapcheck <- renderText({
