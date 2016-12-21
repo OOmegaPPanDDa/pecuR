@@ -1,0 +1,83 @@
+
+# This is the server logic for a Shiny web application.
+# You can find out more about building applications with Shiny here:
+#
+# http://shiny.rstudio.com
+#
+
+library(shiny)
+library(leaflet)
+source('source.R')
+
+shinyServer(function(input, output, session) {
+
+  output$distPlot <- renderPlot({
+
+    # generate bins based on input$bins from ui.R
+    x    <- faithful[, 2]
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+    # draw the histogram with the specified number of bins
+    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+
+  })
+
+  output$randomNumber <- renderPlot({
+
+    getmean <- input$getmean
+    getvar <- input$getvar
+    n <- input$getn
+
+    # generate bins based on input$bins from ui.R
+    getnum <- rnorm(n, mean = getmean, sd = getvar^0.5)
+
+    # draw the histogram with the specified number of bins
+    plot(getnum, col = 'deepskyblue')
+
+  }
+  )
+  
+  
+  
+  
+  ShowId <- eventReactive(input$Area, {
+    which(stores$tag == input$Area)
+  })
+  
+  observeEvent(input$Area, {
+    Id = ShowId()
+    m <- leafletProxy('mymap',session) %>% clearMarkers()
+    for( i in 1:length(input$Area) )
+    {
+      subid = which(stores$tag == input$Area[i])
+      iconF = stores$tag[subid[1]]
+      iconF = paste('i_', iconF, '.png', sep='')
+      
+      LeafIcon <- makeIcon(
+        iconUrl = iconF,
+        iconWidth = 18, iconHeight = 18,
+        iconAnchorX = 18, iconAnchorY = 18)
+      
+      lng.path = stores$lan[subid]
+      lat.path = stores$lat[subid]
+      m <- addMarkers(m, lng=lng.path,lat=lat.path, icon=LeafIcon)
+    }
+  })
+  
+  output$mymap <- renderLeaflet({
+    markers711 <- leaflet() %>% 
+      addTiles() %>%
+      setView(121.5467, 25.05248, zoom = 13)
+    markers711
+  })
+  
+  output$mapcheck <- renderText({
+    print(input$Area)
+  })
+  
+  output$store <- renderTable({
+    ids = which(stores$tag == input$Area)
+    stores[ids,]
+    })
+
+})
