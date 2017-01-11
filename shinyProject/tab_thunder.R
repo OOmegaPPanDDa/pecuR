@@ -4,7 +4,7 @@ output$date_ui_thunder <- renderUI({
     filter(disaster.event == input$thunder)
   
   dateInput('day_Thun',"Day",value = data_Thun$date[1], 
-            min = min(data_Thun$date), max = max(data_Thun$date))
+            min = min(data_Thun$date), max = max(data_Thun$date), language = "zh-TW")
   
 }) 
 

@@ -4,7 +4,7 @@ output$date_ui_typhoon <- renderUI({
     filter(disaster.event == input$typhoon)
   
   dateInput('day_Ty',"Day",value = data_Ty$date[1], 
-            min = min(data_Ty$date), max = max(data_Ty$date))
+            min = min(data_Ty$date), max = max(data_Ty$date), language = "zh-TW")
   
 }) 
 

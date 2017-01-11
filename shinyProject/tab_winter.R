@@ -4,7 +4,7 @@ output$date_ui_winter <- renderUI({
     filter(disaster.event == input$winter)
   
   dateInput('day_W',"Day",value = data_W$date[1], 
-            min = min(data_W$date), max = max(data_W$date))
+            min = min(data_W$date), max = max(data_W$date), language = "zh-TW")
   
 }) 
 

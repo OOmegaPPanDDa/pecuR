@@ -10,7 +10,7 @@ source('readdata.R')
 navbarPage("Disaster Info",
            theme = shinytheme("flatly"),
            
-           tabPanel("typhoon",
+           tabPanel(HTML("<img src='typhoon.png' width = '40px' height='40px'>"),
                     titlePanel("Typhoon"),
                     
                     sidebarLayout(
@@ -24,13 +24,14 @@ navbarPage("Disaster Info",
                                       "雷馬遜颱風 (Rammasun Manila)" = "08_Rammasun_Manila"
                                     )),
                         
-                        uiOutput("date_ui_typhoon"),
-                        
                         sliderInput("zoom_Ty",
                                     "Zoom:",
                                     min = 1,
                                     max = 15,
-                                    value = 5)
+                                    value = 5),
+                        
+                        uiOutput("date_ui_typhoon")
+                        
                       ),
                       
                       mainPanel(
@@ -50,7 +51,7 @@ navbarPage("Disaster Info",
                     )       
            ),
            
-           tabPanel("earthquakes",
+           tabPanel(HTML("<img src='earthquake.png' width = '40px' height='40px'>"),
                     titlePanel("Earthquakes"),
                     
                     sidebarLayout(
@@ -63,14 +64,17 @@ navbarPage("Disaster Info",
                                       "南納帕地震 (South Napa)" = "14_Napa"
                                     )),
                         
-                        uiOutput("date_ui_earthquake"),
+                        
                         
                         
                         sliderInput("zoom_E",
                                     "Zoom:",
                                     min = 1,
                                     max = 15,
-                                    value = 5)
+                                    value = 5),
+                        
+                        uiOutput("date_ui_earthquake")
+                        
                       ),
                       
                       mainPanel(
@@ -90,7 +94,7 @@ navbarPage("Disaster Info",
                     
            ),
            
-           tabPanel("winter storms",
+           tabPanel(HTML("<img src='snow.png' width = '40px' height='40px'>"),
                     titlePanel("Winter Storms"),
                     
                     sidebarLayout(
@@ -103,13 +107,14 @@ navbarPage("Disaster Info",
                                       "亞特蘭大暴風雪 (Atlanta)" = "23_Atlanta"
                                     )),
                         
-                        uiOutput("date_ui_winter"),
                         
                         sliderInput("zoom_W",
                                     "Zoom:",
                                     min = 1,
                                     max = 15,
-                                    value = 5)
+                                    value = 5),
+                        
+                        uiOutput("date_ui_winter")
                       ),
                       
                       mainPanel(
@@ -129,7 +134,7 @@ navbarPage("Disaster Info",
                     
            ),
            
-           tabPanel("thunderstorms",
+           tabPanel(HTML("<img src='thunder.png' width = '40px' height='40px'>"),
                     titlePanel("Thunderstorms"),
                     
                     sidebarLayout(
@@ -142,13 +147,16 @@ navbarPage("Disaster Info",
                                       "巴爾的摩雷雨 (Baltimore)" = "33_Baltimore"
                                     )),
                         
-                        uiOutput("date_ui_thunder"),
                         
                         sliderInput("zoom_Thun",
                                     "Zoom:",
                                     min = 1,
                                     max = 15,
-                                    value = 5)
+                                    value = 5),
+                        
+                        
+                        uiOutput("date_ui_thunder")
+                        
                       ),
                       
                       mainPanel(
@@ -168,7 +176,7 @@ navbarPage("Disaster Info",
                     
            ),
            
-           tabPanel("wildfires",
+           tabPanel(HTML("<img src='fire.png' width = '40px' height='40px'>"),
                     titlePanel("Wildfires"),
                     
                     sidebarLayout(
@@ -180,13 +188,15 @@ navbarPage("Disaster Info",
                                       "澳洲森林火災2 (AuFire2)" = "42_AuFire2"
                                     )),
                         
-                        uiOutput("date_ui_fire"),
                         
                         sliderInput("zoom_F",
                                     "Zoom:",
                                     min = 1,
                                     max = 15,
-                                    value = 5)
+                                    value = 5),
+                        
+                        
+                        uiOutput("date_ui_fire")
                       ),
                       
                       mainPanel(
@@ -205,6 +215,33 @@ navbarPage("Disaster Info",
                     )       
                     
            ),
+           
+           
+           tabPanel(HTML("<img src='reference.png' width = '40px' height='40px'>"),
+                    mainPanel(
+                      HTML('<center>'),
+                      HTML('<br><hr><br>'),
+                      HTML('災害數據資料來源'),
+                      HTML('<br>'),
+                      HTML('<a href="https://www.kaggle.com/dryad/human-mobility-during-natural-disasters">kaggle -- human-mobility-during-natural-disasters</a>'),
+                      HTML('<br><hr><br>'),
+                      HTML('圖片來源'),
+                      HTML('<br>'),
+                      HTML('<a href="https://cdn1.iconfinder.com/data/icons/weather-elements/512/Weather_TornadoVetor.png">Typhoon</a>'),
+                      HTML('<br>'),
+                      HTML('<a href="https://cdn0.iconfinder.com/data/icons/disaster-blaster/250/Earthquake-512.png">Earthquakes</a>'),
+                      HTML('<br>'),
+                      HTML('<a href="http://vignette2.wikia.nocookie.net/camphalfbloodroleplay/images/5/50/White_snow.png/revision/latest?cb=20121201141304">Winter Storms</a>'),
+                      HTML('<br>'),
+                      HTML('<a href="http://www.freeiconspng.com/free-images/thunderstorm-icon-15884">Thunderstorms</a>'),
+                      HTML('<br>'),
+                      HTML('<a href="https://img.clipartfest.com/f24f08fa9a50dda6e137b50449b9dcfb_fire-flames-clipart-free-flame-clipart-png_5084-7399.png">WildFires</a>'),
+                      HTML('<br>'),
+                      HTML('<a href="http://www.melissadata.com/dqt/images/data-quality-reference-data-icon.png">Reference</a>'),
+                      HTML('<br><hr><br>'),
+                      HTML('</center>')
+                      )
+                  ),
            
            tags$style(type="text/css",
                       ".shiny-output-error { visibility: hidden; }",

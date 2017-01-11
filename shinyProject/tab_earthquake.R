@@ -4,7 +4,7 @@ output$date_ui_earthquake <- renderUI({
     filter(disaster.event == input$earthquake)
   
   dateInput('day_E',"Day",value = data_E$date[1], 
-            min = min(data_E$date), max = max(data_E$date))
+            min = min(data_E$date), max = max(data_E$date), language = "zh-TW")
   
 }) 
 

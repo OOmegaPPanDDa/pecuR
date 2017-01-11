@@ -4,7 +4,7 @@ output$date_ui_fire <- renderUI({
     filter(disaster.event == input$fire)
   
   dateInput('day_F',"Day",value = data_F$date[1], 
-            min = min(data_F$date), max = max(data_F$date))
+            min = min(data_F$date), max = max(data_F$date), language = "zh-TW")
   
 }) 
 
