@@ -27,9 +27,9 @@ output$mapcheck <- renderText({
   print(input$Area)
 })
 
-output$store <- renderTable({
+output$store <- renderGvis({
   ids = which(stores$tag == input$Area)
-  stores[ids,]
+  gvisTable(stores[ids,],options=list(page='enable', height=600, width = 600))
 })
 
 

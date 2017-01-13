@@ -2,6 +2,7 @@ stores<- read.csv('./data/taipei_store.csv',header = TRUE)
 names(stores) <- c("id","lng","lat","tag")
 
 gdp <- read.csv("./data/Energy_Census_and_Economic_Data US_2010_2014.csv")
+gdp <- gdp %>% na.omit()
 
 
 # Set up handles to database tables on app start

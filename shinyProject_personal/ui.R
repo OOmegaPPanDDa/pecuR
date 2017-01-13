@@ -4,11 +4,14 @@ library(dplyr)
 library(datasets)
 library(ggvis)
 library(RSQLite)
+library(shinythemes)
+library(googleVis)
+library(ggplot2)
 
 
 source("readdata.R")
 
-navbarPage(
+navbarPage(theme = shinytheme("flatly"),
   "Pecu R Class:  B02705027 陳信豪",
   
   tabPanel(
@@ -32,9 +35,16 @@ navbarPage(
         ),
         
         mainPanel(
-          textOutput("mapcheck"),
-          leafletOutput("mymap", height='600px'),
-          tableOutput('store')
+          navbarPage('Store Info',
+            tabPanel( 'map_part',
+                      textOutput("mapcheck"),
+                      HTML('<br><hr><br>'),
+                      leafletOutput("mymap", height='600px')),
+            tabPanel( 'table_part',
+                      htmlOutput('store'))
+          )
+          
+          
           
         )
       )
@@ -51,15 +61,25 @@ navbarPage(
           3,
           wellPanel(
             h4("Filter"),
-            sliderInput("totalC", "The first year’s total energy consumption divided by the second year’s total energy consumption, times 100.", min = 2010, max = 2014, value = 2010, step = 1),
-            sliderInput("totalP", "The first year’s total energy production divided by the second year’s total energy production, times 100", min = 2010, max = 2014, value = 2010, step = 1)
+            sliderInput("totalC", "Total energy consumption in billion BTU in given year.", min = 2010, max = 2014, value = 2010, step = 1),
+            sliderInput("totalP", "Total energy production in billion BTU in given year.", min = 2010, max = 2014, value = 2010, step = 1),
+            sliderInput("totalE", "Total Energy expenditures in million USD in given year.", min = 2010, max = 2014, value = 2010, step = 1)
           )
 
         ),
         
         column(
           9,
-          plotOutput("gdpPlot")
+          HTML('<center>'),
+          HTML('<br><hr><br>'),
+          HTML("<font size='5' color='coral'>ggplot2 Method</font>"),
+          HTML('<br>'),
+          plotOutput("gdpPlot"),
+          HTML('<br><hr><br>'),
+          HTML("<font size='5' color='coral'>googleVis Method</font>"),
+          HTML('<br>'),
+          htmlOutput("gdpPlotGvis"),
+          HTML('</center>')
         )
       )
     )
@@ -71,30 +91,40 @@ navbarPage(
       # Application title
       titlePanel("Hist and Plot"),
       
-      # Sidebar with a slider input for number of bins
-      sidebarLayout(
-        sidebarPanel(
-          sliderInput("bins",
-                      "Number of bins:",
-                      min = 1,
-                      max = 50,
-                      value = 30),
-          
-          
-          numericInput("getmean", "input mean: ", value = 0),
-          numericInput("getvar", "input var: ", value = 1),
-          numericInput("getn", "input n: ", value = 100)
-          
-        ),
+      fluidRow(
+        column(3,
+               wellPanel(
+                 'Basic_hist',
+                  sliderInput(
+                    "bins",
+                    "Number of bins:",
+                    min = 1,
+                    max = 50,
+                    value = 30
+                    )
+                 )
+               ),
         
-        mainPanel(
-          plotOutput('distPlot'),
-          plotOutput('randomNumber')
-          
-        )
+        column(9,
+               plotOutput('distPlot')
+               )
+      ),
+      
+      fluidRow(
+        column(3,
+               wellPanel(
+                  'Basic_scatter_plot',
+                  numericInput("getmean", "input mean: ", value = 0),
+                  numericInput("getvar", "input var: ", value = 1),
+                  numericInput("getn", "input n: ", value = 100)
+               )
+              ),
+        
+        column(9,
+               plotOutput('randomNumber')
+               )
       )
     )
-    
   ),
   
   tabPanel(

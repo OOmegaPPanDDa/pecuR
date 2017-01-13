@@ -5,7 +5,9 @@ output$distPlot <- renderPlot({
   bins <- seq(min(x), max(x), length.out = input$bins + 1)
   
   # draw the histogram with the specified number of bins
-  hist(x, breaks = bins, col = 'darkgray', border = 'white')
+  hist_output <- hist(x, breaks = bins, col = 'coral', border = 'white', prob = TRUE)
+  lines(density(x))
+  hist_output
   
 })
 
